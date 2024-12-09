@@ -38,7 +38,7 @@ const createIceCream = (newIceCream) => {
 }
 
 const updateIceCream = (id, update) => {
-    return IceCream.findByIdAndUpdate(id, update)
+    return IceCream.findByIdAndUpdate(id, update, {new: true})
 }
 
 const deleteIceCream = (id) => {

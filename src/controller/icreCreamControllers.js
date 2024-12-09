@@ -20,7 +20,7 @@ const getIceCreamById = async (req, res) => {
 
         res.json(iceCream)
     } catch (error) {
-        res.status(500).json({error: "server error"})
+        res.status(500).json({error})
     }
 }
 
