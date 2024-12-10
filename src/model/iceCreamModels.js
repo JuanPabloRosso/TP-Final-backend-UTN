@@ -20,6 +20,10 @@ const iceCreamSchema = new mongoose.Schema({
     required: true,
     min: 0, 
   },
+  expiredAt: {
+    type: Date,
+    required: true,
+  }
 });
 
 const IceCream = mongoose.model('IceCream', iceCreamSchema);
@@ -30,6 +34,16 @@ const getAllIceCream = () => {
 
 const getIceCreamById = (id) => {
     return IceCream.findById(id)
+}
+
+const getIceCreamExpired = () => {
+  const iceCreamExpired = IceCream.find({
+    expiredAt: {
+      $lte: new Date()
+    }
+  });
+
+  return iceCreamExpired;
 }
 
 const createIceCream = (newIceCream) => {
@@ -45,4 +59,4 @@ const deleteIceCream = (id) => {
     return IceCream.deleteOne({_id: id})
 }
 
-export default {getAllIceCream, getIceCreamById, createIceCream, updateIceCream, deleteIceCream} 
+export default {getAllIceCream, getIceCreamById, createIceCream, updateIceCream, deleteIceCream, getIceCreamExpired} 
