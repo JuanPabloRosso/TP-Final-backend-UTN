@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 const iceCreamSchema = new mongoose.Schema({
   name: {
+    unique: true,
     type: String,
     required: true,
     trim: true,
@@ -29,34 +30,59 @@ const iceCreamSchema = new mongoose.Schema({
 const IceCream = mongoose.model("IceCream", iceCreamSchema);
 
 const getAllIceCream = () => {
-  return IceCream.find();
+  try {
+    return IceCream.find();
+  } catch (error) {
+    throw error;
+  }
 };
 
 const getIceCreamById = (id) => {
-  return IceCream.findById(id);
+  try {
+    return IceCream.findById(id);
+  } catch (error) {
+    throw error;
+  }
 };
 
 const getIceCreamExpired = () => {
-  const iceCreamExpired = IceCream.find({
-    expiredAt: {
-      $lte: new Date(),
-    },
-  });
+  try {
+    const iceCreamExpired = IceCream.find({
+      expiredAt: {
+        $lte: new Date(),
+      },
+    });
 
-  return iceCreamExpired;
+    return iceCreamExpired;
+  } catch (error) {
+    throw error;
+  }
 };
 
 const createIceCream = (newIceCream) => {
-  const iceCream = new IceCream(newIceCream);
-  return iceCream.save();
+  try {
+    const iceCream = new IceCream(newIceCream);
+
+    return iceCream.save();
+  } catch (error) {
+    throw error;
+  }
 };
 
 const updateIceCream = (id, update) => {
-  return IceCream.findByIdAndUpdate(id, update, { new: true });
+  try {
+    return IceCream.findByIdAndUpdate(id, update, { new: true });
+  } catch (error) {
+    throw error;
+  }
 };
 
 const deleteIceCream = (id) => {
-  return IceCream.deleteOne({ _id: id });
+  try {
+    return IceCream.findOneAndDelete({ _id: id });
+  } catch (error) {
+    throw error;
+  }
 };
 
 export default {

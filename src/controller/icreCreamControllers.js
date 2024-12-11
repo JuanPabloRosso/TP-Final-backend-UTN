@@ -56,12 +56,11 @@ const createIceCream = async (req, res) => {
       expiredAt,
     });
 
-    console.log(newIceCream);
     res.status(201).json(newIceCream);
   } catch (error) {
-    res
-      .status(500)
-      .json({ message: "server error: error when adding ice cream" });
+    res.status(500).json({
+      error: error.message || "server error: error creating ice cream",
+    });
   }
 };
 
@@ -88,12 +87,13 @@ const updateIceCream = async (req, res) => {
 const deleteIceCream = async (req, res) => {
   try {
     const { id } = req.params;
+
     const iceCream = await iceCreamModels.deleteIceCream(id);
     if (!iceCream) {
       return res.status(404).json({ error: "ice cream not found" });
     }
 
-    res.json({ message: "ice cream removed" });
+    res.json({ message: "ice cream removed", iceCream });
   } catch (error) {
     res.status(500).json({ error: "server error: error removing ice cream" });
   }
