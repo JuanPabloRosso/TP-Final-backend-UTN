@@ -1,15 +1,15 @@
-import mongoose from "mongoose"
+import mongoose from "mongoose";
 
 const iceCreamSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
-    trim: true, 
+    trim: true,
   },
   price: {
     type: Number,
     required: true,
-    min: 0, 
+    min: 0,
   },
   description: {
     type: String,
@@ -18,45 +18,52 @@ const iceCreamSchema = new mongoose.Schema({
   stock: {
     type: Number,
     required: true,
-    min: 0, 
+    min: 0,
   },
   expiredAt: {
     type: Date,
     required: true,
-  }
+  },
 });
 
-const IceCream = mongoose.model('IceCream', iceCreamSchema);
+const IceCream = mongoose.model("IceCream", iceCreamSchema);
 
 const getAllIceCream = () => {
-    return IceCream.find()
-}
+  return IceCream.find();
+};
 
 const getIceCreamById = (id) => {
-    return IceCream.findById(id)
-}
+  return IceCream.findById(id);
+};
 
 const getIceCreamExpired = () => {
   const iceCreamExpired = IceCream.find({
     expiredAt: {
-      $lte: new Date()
-    }
+      $lte: new Date(),
+    },
   });
 
   return iceCreamExpired;
-}
+};
 
 const createIceCream = (newIceCream) => {
-    const iceCream = new IceCream(newIceCream)
-    return iceCream.save()
-}
+  const iceCream = new IceCream(newIceCream);
+  return iceCream.save();
+};
 
 const updateIceCream = (id, update) => {
-    return IceCream.findByIdAndUpdate(id, update, {new: true})
-}
+  return IceCream.findByIdAndUpdate(id, update, { new: true });
+};
 
 const deleteIceCream = (id) => {
-    return IceCream.deleteOne({_id: id})
-}
+  return IceCream.deleteOne({ _id: id });
+};
 
-export default {getAllIceCream, getIceCreamById, createIceCream, updateIceCream, deleteIceCream, getIceCreamExpired} 
+export default {
+  getAllIceCream,
+  getIceCreamById,
+  createIceCream,
+  updateIceCream,
+  deleteIceCream,
+  getIceCreamExpired,
+};
