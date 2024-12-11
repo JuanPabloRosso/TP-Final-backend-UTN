@@ -1,31 +1,36 @@
 import mongoose from "mongoose";
 
-const iceCreamSchema = new mongoose.Schema({
-  name: {
-    unique: true,
-    type: String,
-    required: true,
-    trim: true,
+const iceCreamSchema = new mongoose.Schema(
+  {
+    name: {
+      unique: true,
+      type: String,
+      required: true,
+      trim: true,
+    },
+    price: {
+      type: Number,
+      required: true,
+      min: 0,
+    },
+    description: {
+      type: String,
+      trim: true,
+    },
+    stock: {
+      type: Number,
+      required: true,
+      min: 0,
+    },
+    expiredAt: {
+      type: Date,
+      required: true,
+    },
   },
-  price: {
-    type: Number,
-    required: true,
-    min: 0,
-  },
-  description: {
-    type: String,
-    trim: true,
-  },
-  stock: {
-    type: Number,
-    required: true,
-    min: 0,
-  },
-  expiredAt: {
-    type: Date,
-    required: true,
-  },
-});
+  {
+    versionKey: false,
+  }
+);
 
 const IceCream = mongoose.model("IceCream", iceCreamSchema);
 

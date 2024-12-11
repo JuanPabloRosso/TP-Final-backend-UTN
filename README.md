@@ -42,12 +42,14 @@ IceCream Stock Control es una aplicación construida en Node.js y MongoDB que pe
 1. **Registro de usuario**
 
    - **Ruta:** `POST /api/auth/register`
+   - **email:** De uso unico
    - **Body de ejemplo:**
+
      ```json
      {
        "username": "pepito",
        "password": "prueba1",
-       "email": "pepe@gmail.com"
+       "email": "pepe@gmail.com" //unico
      }
      ```
 

@@ -1,31 +1,34 @@
-import { Schema, model } from "mongoose"
-import bcryptjs from "bcryptjs"
+import { Schema, model } from "mongoose";
+import bcryptjs from "bcryptjs";
 
-const userSchema = new Schema({
-  username: { type: String },
-  password: { type: String },
-  email: { type: String }
-}, {
-  versionKey: false
-})
+const userSchema = new Schema(
+  {
+    username: { type: String },
+    password: { type: String },
+    email: { type: String, unique: true },
+  },
+  {
+    versionKey: false,
+  }
+);
 
-const User = model("users", userSchema)
+const User = model("users", userSchema);
 
 const register = async (dataUser) => {
-  const { username, password, email } = dataUser
+  const { username, password, email } = dataUser;
 
-  const existingUser = await User.findOne({ username })
+  const existingUser = await User.findOne({ email });
   if (existingUser) {
-    return null
+    return null;
   }
 
-  const alg = await bcryptjs.genSalt(10)
-  const hashedPass = await bcryptjs.hash(password, alg)
+  const alg = await bcryptjs.genSalt(10);
+  const hashedPass = await bcryptjs.hash(password, alg);
 
-  const newUser = new User({ username, password: hashedPass, email })
-  const savedUser = await newUser.save()
-  return savedUser
-}
+  const newUser = new User({ username, password: hashedPass, email });
+  const savedUser = await newUser.save();
+  return savedUser;
+};
 
 const login = async (dataUser) => {
   const { username, password } = dataUser;
@@ -43,4 +46,4 @@ const login = async (dataUser) => {
   return existingUser;
 };
 
-export default { register, login }
+export default { register, login };
