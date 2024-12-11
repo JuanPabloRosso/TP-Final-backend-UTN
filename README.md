@@ -88,7 +88,7 @@ IceCream Stock Control es una aplicación construida en Node.js y MongoDB que pe
    - **Body de ejemplo:**
      ```json
      {
-       "name": "Palito Bombom",
+       "name": "Palito Bombom", //unico
        "price": 200,
        "description": "crema recubierta de chocolate crocante",
        "stock": 70,
