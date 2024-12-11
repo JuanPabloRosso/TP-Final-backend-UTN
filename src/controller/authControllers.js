@@ -36,13 +36,13 @@ const login = async (req, res) => {
       return res.status(401).json({ message: "invalid username or password" })
     }
 
-    const token = jwt.sign({ id: user._id, username: user.username }, JWT_SECRET, { expiresIn: '5h' }) // Expira en 5 minutos
+    const token = jwt.sign({ id: user._id, username: user.username }, JWT_SECRET, { expiresIn: '5h' }) // Expira en 5 horas
 
     return res.status(200).json({ message: "Login successful", user: { id: user._id, username: user.username }, token })
   } catch (error) {
     return res.status(500).json({ message: "Server error", error: error.message })
   }
 };
-
+''
 
 export { register, login };
