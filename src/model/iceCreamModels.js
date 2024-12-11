@@ -3,9 +3,9 @@ import mongoose from "mongoose";
 const iceCreamSchema = new mongoose.Schema(
   {
     name: {
-      unique: true,
       type: String,
       required: true,
+      unique: true,
       trim: true,
     },
     price: {
@@ -45,6 +45,15 @@ const getAllIceCream = () => {
 const getIceCreamById = (id) => {
   try {
     return IceCream.findById(id);
+  } catch (error) {
+    throw error;
+  }
+};
+
+const getData = (data) => {
+  try {
+    const iceCream = IceCream.findOne(data);
+    return iceCream;
   } catch (error) {
     throw error;
   }
@@ -97,4 +106,5 @@ export default {
   updateIceCream,
   deleteIceCream,
   getIceCreamExpired,
+  getData,
 };

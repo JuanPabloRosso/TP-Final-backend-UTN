@@ -48,6 +48,11 @@ const createIceCream = async (req, res) => {
     if (!name || !price || !description || !stock || !expiredAt) {
       return res.status(400).json({ error: "bad request, invalid data" });
     }
+    const exists = await iceCreamModels.getData({ name });
+    if (exists) {
+      return res.status(400).json({ error: "ice cream already exists" });
+    }
+
     const newIceCream = await iceCreamModels.createIceCream({
       name,
       price,
@@ -73,6 +78,7 @@ const updateIceCream = async (req, res) => {
   try {
     const { id } = req.params;
     const { body } = req;
+
     const iceCream = await iceCreamModels.updateIceCream(id, body);
     if (!iceCream) {
       return res.status(404).json({ message: "ice cream not found" });

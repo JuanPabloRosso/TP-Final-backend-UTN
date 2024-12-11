@@ -3,7 +3,7 @@ import bcryptjs from "bcryptjs";
 
 const userSchema = new Schema(
   {
-    username: { type: String },
+    username: { type: String, unique: true },
     password: { type: String },
     email: { type: String, unique: true },
   },
@@ -17,7 +17,7 @@ const User = model("users", userSchema);
 const register = async (dataUser) => {
   const { username, password, email } = dataUser;
 
-  const existingUser = await User.findOne({ email });
+  const existingUser = await User.findOne({ $or: [{ username }, { email }] });
   if (existingUser) {
     return null;
   }
