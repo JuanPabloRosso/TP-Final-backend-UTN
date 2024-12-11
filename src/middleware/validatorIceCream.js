@@ -1,6 +1,6 @@
 import { check} from "express-validator";
 
-const validateCreate = [
+const validateCreate = [ //valido inputs
   check("name").notEmpty().withMessage("Name is required").trim(),
   check("price")
     .isNumeric().withMessage("Price must be a number")
