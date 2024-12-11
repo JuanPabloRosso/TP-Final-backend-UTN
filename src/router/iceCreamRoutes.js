@@ -9,7 +9,7 @@ iceCreamRoutes.get("/", getAllIceCream)
 iceCreamRoutes.get("/expired", getIceCreamExpired)
 iceCreamRoutes.get("/:id", getIceCreamById)
 iceCreamRoutes.post("/", validator.validateCreate, createIceCream)
-iceCreamRoutes.patch("/:id",validator.validateUpdate, updateIceCream)
+iceCreamRoutes.put("/:id",validator.validateUpdate, updateIceCream)
 iceCreamRoutes.delete("/:id", deleteIceCream)
 
 
